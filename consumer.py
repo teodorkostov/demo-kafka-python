@@ -23,11 +23,11 @@ while True:
     continue
 
   message = msg.value().decode('utf-8')
-  value = json.loads(message)
-  now = int(1000 * time.time())
-  lag = now - value['timestamp']
+  # value = json.loads(message)
+  # now = int(1000 * time.time())
+  # lag = now - value['timestamp']
 
-  print('lag: {}'.format(lag))
+  print('lag: {}'.format(message))
 
 
 c.close()
