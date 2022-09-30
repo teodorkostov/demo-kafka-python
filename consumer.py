@@ -4,13 +4,12 @@ import time
 
 
 c = Consumer({
-  # 'bootstrap.servers': 'lacalhost',
-  'bootstrap.servers': '127.0.0.1',
+  'bootstrap.servers': 'kafka',
   'group.id': 'mygroup',
   'auto.offset.reset': 'earliest'
 })
 
-c.subscribe(['quickstart'])
+c.subscribe(['my-topic-1'])
 
 
 while True:
@@ -22,12 +21,12 @@ while True:
     print("Consumer error: {}".format(msg.error()))
     continue
 
-  message = msg.value().decode('utf-8')
-  # value = json.loads(message)
-  # now = int(1000 * time.time())
-  # lag = now - value['timestamp']
+  message: str = msg.value().decode('utf-8')
+  value = message.split(sep=' ')[2]
+  now = time.time_ns()
+  lag = now - int(value)
 
-  print('lag: {}'.format(message))
+  print('lag in ns: {}'.format(lag))
 
 
 c.close()
